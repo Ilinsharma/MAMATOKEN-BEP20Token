@@ -1,11 +1,10 @@
 /**
- * #MAMATOKEN
+ * #DOGFUNDS
 
-   - 4% of every transaction is redistributed to all holders
+   - 2% of every transaction is redistributed to all holders
    - 2% of every transaction automatically add to the liquidity pool to locked forever when selling
-   - 2% of every transaction is burned
-   - 4% of every transaction is converted to BNB and sent to the charity wallet
-   - 1% of every transaction is converted to BNB and sent to the dev wallet address
+   - 9% of every transaction is converted to BNB and sent to the charity wallet
+   - 9% of every transaction is converted to BNB and sent to the dev wallet address
    - 1% maximum for sell from total supply
    - blacklist wallet. dev can blacklist and unblacklist wallet address.
 
@@ -780,7 +779,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
     ) external;
 }
 
-contract MAMATOKEN is Context, IERC20, Ownable {
+contract DOGFUNDS is Context, IERC20, Ownable {
     using SafeMath for uint256;
     using Address for address;
 
@@ -793,31 +792,30 @@ contract MAMATOKEN is Context, IERC20, Ownable {
     mapping (address => bool) private _isExcluded;
     address[] private _excluded;
 
-    address private _charityWalletAddress = 0xA7482C9c5926E88d85804A969c383730Ce100639;
-    address private _devWalletAddress = 0xA7482C9c5926E88d85804A969c383730Ce100639;
+    address private _charityWalletAddress = 0x398385f42A0B8961d9eBf7a57C69245C3d483D57;
+    address private _devWalletAddress = 0x2E278DA9f8e3A4e689dEddeD504420DB3Dd75b9F;
 
     uint256 private constant MAX = ~uint256(0);
     uint256 private _tTotal = 1 * 10**12 * 10**9;
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
     uint256 private _tFeeTotal;
 
-    string private _name = "Mamatoken";
-    string private _symbol = "MAMA";
+    string private _name = "DogFunds";
+    string private _symbol = "DFD";
     uint8 private _decimals = 9;
 
-    uint256 public _taxFee = 4;
+    uint256 public _taxFee = 2;
     uint256 private _previousTaxFee = _taxFee;
 
-    uint256 public _charityFee = 4;
+    uint256 public _charityFee = 9;
     uint256 private _previousCharityFee = _charityFee;
     
-    uint256 public _devFee = 1;
+    uint256 public _devFee = 9;
     uint256 private _previousDevFee = _devFee;
 
     uint256 public _liquidityFee = 2;
     uint256 private _previousLiquidityFee = _liquidityFee;
     
-    uint256 public _burnFee = 2;
 
     IUniswapV2Router02 public immutable uniswapV2Router;
     address public immutable uniswapV2Pair;
